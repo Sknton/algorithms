@@ -1,11 +1,10 @@
 import methods.BFS_method.Person;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static methods.BFS_method.BFS.BFSMethod;
+import static methods.DijkstraAlgorithm.dijkstraAlgorithm;
+import static methods.DijkstraAlgorithm.printDijkstraResults;
 
 
 public class Main {
@@ -69,6 +68,29 @@ public class Main {
 
         System.out.println(mangoSeller);
 */
+
+
+        //Dijkstra's algorithm
+        Map<String, Map<String, Long>> graph = new HashMap<>(Map.of(
+                "Start", Map.of("A", 6L, "B", 2L),
+                "A", Map.of("Fin", 1L),
+                "B", Map.of("A", 3L, "Fin", 5L),
+                "Fin", Collections.emptyMap()
+        ));
+
+        Map<String, Long> costs = new HashMap<>(Map.of("A", 6L,
+                "B", 2L,
+                "Fin", Long.MAX_VALUE));
+
+        Map<String, String> parents = new HashMap<>(Map.of("A", "Start",
+                "B", "Start"));
+        parents.put("Fin", null);
+
+        List<String> processed = new ArrayList<>();
+
+        Long distanceToFin = dijkstraAlgorithm(costs, processed, graph, parents);
+
+        printDijkstraResults(distanceToFin, parents);
 
 
     }
